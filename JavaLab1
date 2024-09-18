@@ -1,0 +1,65 @@
+class Employee {
+    private int id;
+    private String fullName;
+    private String birthDate;
+    private String phone;
+    private String address;
+
+    public Employee(int id, String fullName, String birthDate, String phone, String address) {
+        this.id = id;
+        this.fullName = fullName;
+        this.birthDate = birthDate;
+        this.phone = phone;
+        this.address = address;
+    }
+
+    public int getId() { return id; }
+    public String getFullName() { return fullName; }
+    public String getBirthDate() { return birthDate; }
+    public String getPhone() { return phone; }
+    public String getAddress() { return address; }
+}
+
+class Position {
+    private int id;
+    private String title;
+    private double salary;
+
+    public Position(int id, String title, double salary) {
+        this.id = id;
+        this.title = title;
+        this.salary = salary;
+    }
+
+    public int getId() { return id; }
+    public String getTitle() { return title; }
+    public double getSalary() { return salary; }
+}
+
+public class Main {
+    public static void main(String[] args) {
+
+        Employee employee = new Employee(1, "Рыбкина Мария Владимировна", "27.03.2000", "+7 912 345 6789", "г. Москва, ул. Ленина, д. 32");
+        Position position = new Position(1, "Бухгалтер", 50000);
+
+
+        EmployeeProcessor employeeProcessor = new EmployeeProcessor() {
+            @Override
+            public void processEmployee(Employee employee, Position position) {
+                System.out.println("Сотрудник: " + employee.getFullName());
+                System.out.println("Дата рождения: " + employee.getBirthDate());
+                System.out.println("Телефон: " + employee.getPhone());
+                System.out.println("Адрес: " + employee.getAddress());
+                System.out.println("Должность: " + position.getTitle());
+                System.out.println("Оклад: " + position.getSalary() + " руб.");
+            }
+        };
+
+        employeeProcessor.processEmployee(employee, position);
+    }
+}
+
+
+interface EmployeeProcessor {
+    void processEmployee(Employee employee, Position position);
+}
