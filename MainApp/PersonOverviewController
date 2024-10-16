@@ -1,0 +1,93 @@
+package ch.makery.address.view;
+
+import javafx.fxml.FXML;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import ch.makery.address.MainApp;
+import ch.makery.address.model.Person;
+
+public class PersonOverviewController {
+    @FXML
+    private TableView<Person> personTable;
+    @FXML
+    private TableColumn<Person, String> nameColumn;
+    @FXML
+    private TableColumn<Person, Integer> salaryColumn;
+
+    @FXML
+    private Label nameLabel;
+    @FXML
+    private Label fullNameLabel;
+    @FXML
+    private Label phoneNumberLabel;
+    @FXML
+    private Label addressLabel;
+    @FXML
+    private Label birthdayLabel;
+
+    // Ссылка на главное приложение.
+    private MainApp mainApp;
+
+    /**
+     * Конструктор.
+     * Конструктор вызывается раньше метода initialize().
+     */
+    public PersonOverviewController() {
+    }
+
+    /**
+     * Инициализация класса-контроллера. Этот метод вызывается автоматически
+     * после того, как fxml-файл будет загружен.
+     */
+    @FXML
+    private void initialize() {
+        // Инициализация таблицы сотрудников с двумя столбцами.
+        nameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
+        salaryColumn.setCellValueFactory(cellData -> cellData.getValue().salaryProperty().asObject());
+
+        // Очистка информации о сотруднике.
+        showPersonDetails(null);
+
+        // Слушаем изменения в выборе строк таблицы сотрудников и отображаем
+        // соответствующую информацию.
+        personTable.getSelectionModel().selectedItemProperty().addListener(
+                (observable, oldValue, newValue) -> showPersonDetails(newValue));
+    }
+
+    /**
+     * Заполняет все текстовые поля для отображения подробной информации о сотруднике,
+     * если сотрудник выбран, иначе очищает поля.
+     * 
+     * @param person — выбранный человек или null.
+     */
+    private void showPersonDetails(Person person) {
+        if (person != null) {
+            // Заполняем метки информацией из объекта person.
+            nameLabel.setText(person.getName());
+            fullNameLabel.setText(person.getFullName());
+            phoneNumberLabel.setText(person.getPhoneNumber());
+            addressLabel.setText(person.getAddress());
+            birthdayLabel.setText(person.getBirthday().toString());
+        } else {
+            // Если person == null, убираем весь текст.
+            nameLabel.setText("Label");
+            fullNameLabel.setText("Label");
+            phoneNumberLabel.setText("Label");
+            addressLabel.setText("Label");
+            birthdayLabel.setText("Label");
+        }
+    }
+
+    /**
+     * Вызывается главным приложением, которое даёт на себя ссылку.
+     * 
+     * @param mainApp
+     */
+    public void setMainApp(MainApp mainApp) {
+        this.mainApp = mainApp;
+
+        // Добавление в таблицу данных из наблюдаемого списка
+        personTable.setItems(mainApp.getPersonData());
+    }
+}
