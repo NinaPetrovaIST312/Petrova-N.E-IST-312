@@ -1,0 +1,119 @@
+package ch.makery.address.model;
+
+import java.time.LocalDate;
+
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
+/**
+ * Класс-модель для сотрудника (Person).
+ */
+public class Person {
+
+    private final StringProperty name;
+    private final IntegerProperty salary;
+    private final StringProperty fullName;
+    private final ObjectProperty<LocalDate> birthday;
+    private final StringProperty phoneNumber;
+    private final StringProperty address;
+
+    /**
+     * Конструктор по умолчанию.
+     */
+    public Person() {
+        this(null, 0);
+    }
+
+    /**
+     * Конструктор с начальными данными.
+     * 
+     * @param name
+     * @param salary
+     */
+    public Person(String name, int salary) {
+        this.name = new SimpleStringProperty(name);
+        this.salary = new SimpleIntegerProperty(salary);
+
+        // Фиктивные данные для тестирования
+        this.fullName = new SimpleStringProperty("Полное имя");
+        this.birthday = new SimpleObjectProperty<LocalDate>(LocalDate.of(1990, 1, 1));
+        this.phoneNumber = new SimpleStringProperty("123-456-7890");
+        this.address = new SimpleStringProperty("Примерный адрес");
+    }
+
+    public String getName() {
+        return name.get();
+    }
+
+    public void setName(String name) {
+        this.name.set(name);
+    }
+
+    public StringProperty nameProperty() {
+        return name;
+    }
+
+    public int getSalary() {
+        return salary.get();
+    }
+
+    public void setSalary(int salary) {
+        this.salary.set(salary);
+    }
+
+    public IntegerProperty salaryProperty() {
+        return salary;
+    }
+
+    public String getFullName() {
+        return fullName.get();
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName.set(fullName);
+    }
+
+    public StringProperty fullNameProperty() {
+        return fullName;
+    }
+
+    public LocalDate getBirthday() {
+        return birthday.get();
+    }
+
+    public void setBirthday(LocalDate birthday) {
+        this.birthday.set(birthday);
+    }
+
+    public ObjectProperty<LocalDate> birthdayProperty() {
+        return birthday;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber.get();
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber.set(phoneNumber);
+    }
+
+    public StringProperty phoneNumberProperty() {
+        return phoneNumber;
+    }
+
+    public String getAddress() {
+        return address.get();
+    }
+
+    public void setAddress(String address) {
+        this.address.set(address);
+    }
+
+    public StringProperty addressProperty() {
+        return address;
+    }
+}
